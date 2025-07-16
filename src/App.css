@@ -1,7 +1,7 @@
 
 .App {
   text-align: center;
-  background-color: #282c34;
+  background-color: #EAECE0;
   
 }
 
@@ -34,7 +34,7 @@ font-size: 40px;
   flex-direction: row;
   position: relative;
   top: -20px;
-  background-color: rgb(253, 254, 255);
+  background-color:rgb(50, 58, 75);
  column-gap: 15px;
  justify-content: center;
  border:none;
