@@ -1,7 +1,6 @@
 
 .DashBoard {
   text-align: center;
-  background-color: #EAECE0;
   
 }
 
@@ -15,38 +14,66 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.Item-button > div:last-child button:hover {
+  cursor: pointer;
+  color: #3f4a61;        /* pick any highlight color */
+  transform: scale(1.2); /* slight zoom‑in */
+}
 
 .App-header {
 position:relative;
-top:2px;
+top:-1 c0px;
 padding-left: 500px;
 background-Color:#3f4a61ff;
-padding-top: 40px;
-padding-bottom: 20px;
+padding-top: 50px;
+padding-bottom: 30px;
+height: 200px;
 font-size: 40px;
+margin-bottom: none;
 }
 .Classification-NavBar{
   display: flex;
+  align-content: center;
   min-width: 130px;
   min-height: 25px;
+  margin-top: 0px;
   padding-bottom: 6px;
   padding-top: 6px;
   flex-direction: row;
   position: relative;
-  top: -20px;
+  top: -50px;
   background-color:rgb(50, 58, 75);
- column-gap: 15px;
+ column-gap: 20px;
  justify-content: center;
  border:none;
 }
+.Shopping-Cart-Button{
+  position: relative;
+  left: 40px;
+font-size: 27px;
+width: fit-content;
+background-color: rgb(50, 58, 75);
+color: white;
+border: none;
+border-radius: 1px;
+}
+.Shopping-Cart-Button:hover{
+  cursor: pointer;
+  background-color: rgb(26, 30, 38);
+}
 .Category-Button{
-  font-size: 13px;
+  position: relative;
+  align-content: center;
+  white-space: nowrap;
   border:none;
+  top: 9px;
   background-color: rgb(255, 255, 255);
   border: solid 1px black;
   border-radius:2px;
- 
+  min-width: 80px;
+  width:fit-content;
+  height:20px ;
+  font-size: 15px;
 }
 .Category-Button:hover{
   cursor: pointer;
@@ -68,7 +95,7 @@ font-size: 40px;
 .Items-Container {
 display: flex;
 flex-direction: row;
-background-color: rgb(60, 98, 175);
+background-color: rgb(231, 246, 220);
 position: relative;
 width: 1100px;
 left: 100px; 
@@ -88,17 +115,20 @@ position: relative;
 left: 20px;
 
 }
-button{
+ .Item-button{
   position: relative;
   width: 140px;
   height: fit-content;
   margin-right: 10px;
-  border: 0.5px solid black;
+  background-color: rgb(255, 255, 255);
+  border: 0.3px solid black;
 }
-button:hover {
+.Item-button:hover {
   cursor: pointer;
-   box-shadow: 
+  
+  /* box-shadow: 
     0 8px 16px rgba(0, 0, 0, 0.3),   /* Strong shadow below */
-    0 4px 6px rgba(0, 0, 0, 0.1);    /* Soft shadow for depth */
-  transform: translateY(-2px); /* Slight lift */
+   /* 0 4px 6px rgba(0, 0, 0, 0.075);    /* Soft shadow for depth */
+ /* transform: translateY(-1px); /* Slight lift */
+  
 }
