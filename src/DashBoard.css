@@ -132,3 +132,19 @@ left: 20px;
  /* transform: translateY(-1px); /* Slight lift */
   
 }
+.Add-Remove-Item-Button{
+border: none;
+}
+.Add-Remove-Item-Button i {
+  transition: background-color 0.3s, transform 0.3s;  /* Smooth transition for color and transform */
+  padding: 0.1px .1px;  /* Reduce padding vertically and horizontally */
+  background-color: transparent;  /* Make background transparent by default */
+  border-radius: 50%;  /* Ensure the background is circular */
+  display: inline-block;  /* Make the icon fit tightly around its content */
+  line-height: 1;  /* Ensure the icon's line height doesn't exceed its height */
+}
+
+.Add-Remove-Item-Button:hover i {
+  background-color: #3b9b23;  /* Change the background color of the icon on hover */
+  transform: scale(1);  /* Slight zoom-in for the icon */
+}
