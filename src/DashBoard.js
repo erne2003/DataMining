@@ -1,5 +1,5 @@
 // DashBoard.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './DashBoard.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -8,36 +8,63 @@ import { itemList as initialItems } from './Items';
 
 function DashBoard() {
   const navigate = useNavigate();
-  const [items, setItems] = useState(initialItems);
-  const [currentArray, setCurrentArray] = useState([]);
+
+  // load saved items (with quantities) or fall back to initialItems
+  const [items, setItems] = useState(() => {
+    const saved = sessionStorage.getItem('shoppingItems');
+    return saved ? JSON.parse(saved) : initialItems;
+  });
+
+  // load saved cart or start empty
+  const [currentArray, setCurrentArray] = useState(() => {
+    const saved = sessionStorage.getItem('shoppingCart');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // persist items whenever they change
+  useEffect(() => {
+    sessionStorage.setItem('shoppingItems', JSON.stringify(items));
+  }, [items]);
+
+  // persist cart whenever it changes
+  useEffect(() => {
+    sessionStorage.setItem('shoppingCart', JSON.stringify(currentArray));
+  }, [currentArray]);
+
+  // filter state
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const categories = [
+    "Grocery","Produce","Bakery","Dairy","Meat & Seafood",
+    "Frozen Foods","Beverages","Snacks","Household","Health"
+  ];
+
+  // pick items matching the selected category (or all if none)
+  const displayedItems = selectedCategory
+    ? items.filter(item => item.category === selectedCategory)
+    : items;
 
   const handleClick = () => {
-    // Navigate and hand off currentArray
     navigate('/ShoppingCart', { state: { currentArray } });
   };
 
   const handleIncrement = (name) => {
-    // Update quantity in items
     setItems(prev =>
-      prev.map(i => i.name === name
-        ? { ...i, quantity: i.quantity + 1 }
-        : i
+      prev.map(i =>
+        i.name === name ? { ...i, quantity: i.quantity + 1 } : i
       )
     );
-    // Add one instance of that item to currentArray
     const item = items.find(i => i.name === name);
     if (item) setCurrentArray(prev => [...prev, item]);
   };
 
   const handleDecrement = (name) => {
-    // Update quantity in items
     setItems(prev =>
-      prev.map(i => i.name === name && i.quantity > 0
-        ? { ...i, quantity: i.quantity - 1 }
-        : i
+      prev.map(i =>
+        i.name === name && i.quantity > 0
+          ? { ...i, quantity: i.quantity - 1 }
+          : i
       )
     );
-    // Remove one instance from currentArray
     setCurrentArray(prev => {
       const idx = prev.findIndex(i => i.name === name);
       if (idx === -1) return prev;
@@ -52,10 +79,20 @@ function DashBoard() {
       <header className="App-header">Fresh Market</header>
 
       <h2 className="Classification-NavBar">
-        {["Grocery","Produce","Bakery","Dairy","Meat & Seafood",
-          "Frozen Foods","Beverages","Snacks","Household","Health"
-        ].map(cat => (
-          <button key={cat} className="Category-Button">{cat}</button>
+ <button
+          className="Transaction-Menu"
+          onClick={() => navigate('/TransactionScreen')}
+        >
+          <i className="bi bi-list"></i>
+        </button>
+        {categories.map(cat => (
+          <button
+            key={cat}
+            className="Category-Button"
+            onClick={() => setSelectedCategory(cat)}
+          >
+            {cat}
+          </button>
         ))}
         <button className="Shopping-Cart-Button" onClick={handleClick}>
           <i className="bi bi-cart"></i>
@@ -63,7 +100,7 @@ function DashBoard() {
       </h2>
 
       <div className="Items-Container">
-        {items.map(item => (
+        {displayedItems.map(item => (
           <button
             key={item.name}
             className="Item-button"
