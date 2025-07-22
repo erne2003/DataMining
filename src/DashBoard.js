@@ -126,7 +126,7 @@ function DashBoard() {
             <div style={{
               position: "relative",
               top: "35px",
-              left: "30px",
+              left: "22px",
               display: "flex",
               marginBottom: "10px",
               fontSize: "15px"
